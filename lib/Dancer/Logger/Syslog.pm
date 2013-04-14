@@ -8,16 +8,42 @@ use base 'Dancer::Logger::Abstract';
 use File::Basename 'basename';
 use Sys::Syslog qw(:DEFAULT setlogsock);
 
-$VERSION = '0.2';
+use Dancer::Config 'setting';
+
+$VERSION = '0.3';
 
 sub init {
     my ($self) = @_;
-    my $basename = basename($0);
+    my $basename = setting('appname') || $ENV{DANCER_APPDIR} || basename($0);
     setlogsock('unix');
-    openlog($basename, 'pid', 'USER');
+
+    my $conf = setting('syslog');
+    my $facility = $conf->{facility} || 'USER';
+
+    openlog($basename, 'pid', $facility);
 }
 
 sub DESTROY { closelog() }
+
+# our format should be a bit cooked for syslog
+sub format_message {
+    my ($self, $level, $message) = @_;
+    chomp $message;
+
+    my ($package, $file, $line) = caller(3);
+    $package ||= '-';
+    $file    ||= '-';
+    $line    ||= '-';
+
+    my $time = Dancer::SharedData->timer->tick;
+    my $r    = Dancer::SharedData->request;
+    if (defined $r) {
+        return "\@$time> [hit #" . $r->id . "] $message in $file l. $line\n";
+    }
+    else {
+        return "\@$time> $message in $file l. $line\n";
+    }
+}
 
 sub _log {
     my ($self, $level, $message) = @_;
@@ -26,6 +52,7 @@ sub _log {
         debug   => 'debug',
         warning => 'warning',
         error   => 'err',
+        info    => 'info',
     };
     $level = $syslog_levels->{$level} || 'debug';
     my $fm = $self->format_message($level => $message);
@@ -51,13 +78,25 @@ through the Sys::Syslog module.
 The setting B<logger> should be set to C<syslog> in order to use this session
 engine in a Dancer application.
 
+You can also specify the facility to log to via the 'facility' parameter, e.g.
+
+ syslog:
+   facility: 'local0'
+
+The default facility is 'USER'.
+
 =head1 METHODS
 
 =head2 init()
 
 The init method is called by Dancer when creating the logger engine
-with this class. It will initiate a Syslog connection under the B<USER>
-facility.
+with this class.
+
+=head2 format_message()
+
+This method defines how to format messages for Syslog, it's a bit different 
+than the standard one provided by L<Dancer::Logger::Abstract> because Syslog
+already provides a couple of information.
 
 =head1 DEPENDENCY
 
