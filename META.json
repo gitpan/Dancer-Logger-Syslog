@@ -1,10 +1,11 @@
 {
    "abstract" : "Dancer logger engine for Sys::Syslog",
    "author" : [
-      "Alexis Sukrieh <sukria@sukria.net>"
+      "Alexis Sukrieh <sukria@sukria.net>",
+      "Yanick Champoux <yanick@cpan.org>"
    ],
-   "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.62, CPAN::Meta::Converter version 2.120921",
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Zilla version 4.300030, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "perl_5"
    ],
@@ -13,31 +14,64 @@
       "version" : "2"
    },
    "name" : "Dancer-Logger-Syslog",
-   "no_index" : {
-      "directory" : [
-         "t",
-         "inc"
-      ]
-   },
    "prereqs" : {
       "build" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : "0"
+            "Module::Build" : "0.3601"
          }
       },
       "configure" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : "0"
+            "ExtUtils::MakeMaker" : "6.30",
+            "Module::Build" : "0.3601"
+         }
+      },
+      "develop" : {
+         "requires" : {
+            "Test::CPAN::Meta" : "0",
+            "Test::Pod" : "1.41"
          }
       },
       "runtime" : {
          "requires" : {
-            "Dancer" : "1.123",
+            "Dancer::Config" : "0",
+            "Dancer::Logger::Abstract" : "0",
+            "File::Basename" : "0",
             "Sys::Syslog" : "0",
+            "base" : "0",
+            "strict" : "0",
+            "warnings" : "0"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Dancer::ModuleLoader" : "0",
+            "File::Find" : "0",
+            "File::Temp" : "0",
             "Test::More" : "0"
          }
       }
    },
+   "provides" : {
+      "Dancer::Logger::Syslog" : {
+         "file" : "lib/Dancer/Logger/Syslog.pm",
+         "version" : "0.5"
+      }
+   },
    "release_status" : "stable",
-   "version" : "0.4"
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/PerlDancer/Dancer-Logger-Syslog/issues"
+      },
+      "repository" : {
+         "url" : "https://github.com/PerlDancer/Dancer-Logger-Syslog"
+      }
+   },
+   "version" : "0.5",
+   "x_authority" : "cpan:SUKRIA",
+   "x_contributors" : [
+      "Sam Crawley <samc@catalyst.net.nz>",
+      "Sergey Romanov <complefor@rambler.ru>"
+   ]
 }
+

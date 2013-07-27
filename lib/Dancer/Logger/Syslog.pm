@@ -1,16 +1,23 @@
 package Dancer::Logger::Syslog;
+BEGIN {
+  $Dancer::Logger::Syslog::AUTHORITY = 'cpan:SUKRIA';
+}
+{
+  $Dancer::Logger::Syslog::VERSION = '0.5';
+}
+{
+  $Dancer::Logger::Syslog::VERSION = '0.5';
+}
+# ABSTRACT: Dancer logger engine for Sys::Syslog
 
 use strict;
 use warnings;
 
-use vars '$VERSION';
 use base 'Dancer::Logger::Abstract';
 use File::Basename 'basename';
 use Sys::Syslog qw(:DEFAULT setlogsock);
 
 use Dancer::Config 'setting';
-
-$VERSION = '0.4';
 
 sub init {
     my ($self) = @_;
@@ -70,6 +77,7 @@ sub _log {
 }
 
 1;
+
 __END__
 
 =pod
@@ -77,6 +85,10 @@ __END__
 =head1 NAME
 
 Dancer::Logger::Syslog - Dancer logger engine for Sys::Syslog
+
+=head1 VERSION
+
+version 0.5
 
 =head1 DESCRIPTION
 
@@ -112,7 +124,7 @@ if not defined, to the executable's basename.
 Log options passed top C<openlog()> as per Sys::Syslog's docs. Defaults to
 'pid'. 
 
-=back  
+=back
 
 =head1 METHODS
 
@@ -131,21 +143,29 @@ already provides a couple of information.
 
 This module depends on L<Sys::Syslog>.
 
-=head1 AUTHOR
-
-This module has been written by Alexis Sukrieh
-
 =head1 SEE ALSO
 
 See L<Dancer> for details about logging in route handlers.
 
-=head1 COPYRIGHT
+=head1 AUTHORS
 
-This module is copyright (c) 2010 Alexis Sukrieh <sukria@sukria.net>.
+=over 4
 
-=head1 LICENSE
+=item *
 
-This module is free software and is released under the same terms as Perl
-itself.
+Alexis Sukrieh <sukria@sukria.net>
+
+=item *
+
+Yanick Champoux <yanick@cpan.org>
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2010 by Alexis Sukrieh.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut

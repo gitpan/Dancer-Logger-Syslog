@@ -2,23 +2,40 @@
 abstract: 'Dancer logger engine for Sys::Syslog'
 author:
   - 'Alexis Sukrieh <sukria@sukria.net>'
+  - 'Yanick Champoux <yanick@cpan.org>'
 build_requires:
-  ExtUtils::MakeMaker: 0
+  Dancer::ModuleLoader: 0
+  File::Find: 0
+  File::Temp: 0
+  Module::Build: 0.3601
+  Test::More: 0
 configure_requires:
-  ExtUtils::MakeMaker: 0
-dynamic_config: 1
-generated_by: 'ExtUtils::MakeMaker version 6.62, CPAN::Meta::Converter version 2.120921'
+  ExtUtils::MakeMaker: 6.30
+  Module::Build: 0.3601
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.300030, CPAN::Meta::Converter version 2.120921'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Dancer-Logger-Syslog
-no_index:
-  directory:
-    - t
-    - inc
+provides:
+  Dancer::Logger::Syslog:
+    file: lib/Dancer/Logger/Syslog.pm
+    version: 0.5
 requires:
-  Dancer: 1.123
+  Dancer::Config: 0
+  Dancer::Logger::Abstract: 0
+  File::Basename: 0
   Sys::Syslog: 0
-  Test::More: 0
-version: 0.4
+  base: 0
+  strict: 0
+  warnings: 0
+resources:
+  bugtracker: https://github.com/PerlDancer/Dancer-Logger-Syslog/issues
+  repository: https://github.com/PerlDancer/Dancer-Logger-Syslog
+version: 0.5
+x_authority: cpan:SUKRIA
+x_contributors:
+  - 'Sam Crawley <samc@catalyst.net.nz>'
+  - 'Sergey Romanov <complefor@rambler.ru>'

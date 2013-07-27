@@ -1,13 +1,19 @@
+Build.PL
+CONTRIBUTORS
 Changes
-ignore.txt
-lib/Dancer/Logger/Syslog.pm
-Makefile.PL
+LICENSE
 MANIFEST
+META.json
+META.yml
+Makefile.PL
 README
+lib/Dancer/Logger/Syslog.pm
+t/00-compile.t
 t/00-load.t
 t/01-log.t
 t/manifest.t
 t/pod-coverage.t
 t/pod.t
-META.yml                                 Module YAML meta-data (added by MakeMaker)
-META.json                                Module JSON meta-data (added by MakeMaker)
+t/release-distmeta.t
+t/release-no-tabs.t
+t/release-pod-syntax.t
