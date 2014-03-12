@@ -2,14 +2,8 @@ package Dancer::Logger::Syslog;
 BEGIN {
   $Dancer::Logger::Syslog::AUTHORITY = 'cpan:SUKRIA';
 }
-{
-  $Dancer::Logger::Syslog::VERSION = '0.5';
-}
-{
-  $Dancer::Logger::Syslog::VERSION = '0.5';
-}
 # ABSTRACT: Dancer logger engine for Sys::Syslog
-
+$Dancer::Logger::Syslog::VERSION = '0.6';
 use strict;
 use warnings;
 
@@ -34,26 +28,6 @@ sub init {
 }
 
 sub DESTROY { closelog() }
-
-# our format should be a bit cooked for syslog
-sub format_message {
-    my ($self, $level, $message) = @_;
-    chomp $message;
-
-    my ($package, $file, $line) = caller(3);
-    $package ||= '-';
-    $file    ||= '-';
-    $line    ||= '-';
-
-    my $time = Dancer::SharedData->timer->tick;
-    my $r    = Dancer::SharedData->request;
-    if (defined $r) {
-        return "\@$time> [hit #" . $r->id . "] $message in $file l. $line\n";
-    }
-    else {
-        return "\@$time> $message in $file l. $line\n";
-    }
-}
 
 sub _log {
     my ($self, $level, $message) = @_;
@@ -82,13 +56,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dancer::Logger::Syslog - Dancer logger engine for Sys::Syslog
 
 =head1 VERSION
 
-version 0.5
+version 0.6
 
 =head1 DESCRIPTION
 
